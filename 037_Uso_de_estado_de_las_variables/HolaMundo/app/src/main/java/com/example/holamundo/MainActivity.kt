@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,9 +30,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//==========USO DEL ESTADO DE LAS VARIABLES==========//
+//==========LAZYROW==========//
 
-//Creando una lista de colores
+//1. Creando una lista de colores
 val Colores = listOf(
     Color.Red,
     Color.Yellow,
@@ -44,18 +43,11 @@ val Colores = listOf(
     Color.Green
 )
 
-//2. Creando una constante
-val nombre = "Me Gusta"
-//var likes = 0
 
 @Preview(showBackground = true)
 @Composable
 fun Content() {
-
-    //9. Creando una variable mutable con remember
-    var likes by remember { mutableStateOf(0) }
-
-    //Modificando la columna
+    // Modificando la columna
     Column(
         modifier = Modifier
             .fillMaxSize() //hace a la columna utilizar thodo el espacio disponible de la pantalla
@@ -78,7 +70,7 @@ fun Content() {
         Space()
         //Llamando a la función Circulo y asignándole un color
 
-        //Escribir LazyRow
+        //2. Escribir LazyRow
         LazyRow(
             modifier = Modifier //agregando un modificador a la fila
                 .fillMaxWidth(), //hace que utilice thodo el ancho disponible de la fila
@@ -89,44 +81,17 @@ fun Content() {
             Circulo(color = Color.Yellow) //enviándole el color a la función
             Circulo(color = Color.Green) //enviándole el color a la función*/
 
-            //El LazyRow solo acepta items
+            //3. El LazyRow solo acepta items
             items(Colores) { it ->
                 Circulo(color = it)
                 Spacer(modifier = Modifier.width(10.dp))
             }
         }
 
-        //3. Agregando otra fila
-        Space()        
-        Row(//7. Agregando un modifier al Row para que los elementos estén alineados al centro
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            //4. Creando un botón
-            Button(onClick = {//8. Programando el botón para que cuenta los 'likes'
-                likes++ //para ver el aumento crear una variable con remember dentro de un composable
-            }) {
-                //5. agregando un texto al botón
-                Text(text = nombre)
-            }
-
-            //6. Llamando a nuesta función Resultado
-            Spacer(modifier = Modifier.width(10.dp))
-            Resultado(likes = likes) //crearle una variable arriba llamada 'likes'
-
-        }
-
     }
 
 }
 
-//1. Creando el texto de nuestro contador de likes; nombrando a la función Resultado()
-@Composable
-fun Resultado(likes: Int) {
-    Text(text = likes.toString(), fontWeight = FontWeight.Bold, fontSize = 50.sp)
-}
 
 @Composable
 fun Texto(texto: String) {
